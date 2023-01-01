@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from day03_rucksack_reorganization.rucksack import get_error_sum_from_file, get_badge_sum_from_file
+from day03_rucksack_reorganization.main import get_error_sum_from_file, get_badge_sum_from_file
 
 
 class Test(TestCase):

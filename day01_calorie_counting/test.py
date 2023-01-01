@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from day01_calorie_counting.calorie_counting import find_max_calories, find_top_3_calories
+from day01_calorie_counting.main import find_max_calories, find_top_3_calories
 
 
 class TestCalorieCounting(TestCase):

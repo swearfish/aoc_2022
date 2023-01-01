@@ -31,3 +31,4 @@ def find_top_3_calories(file_name: str) -> int:
     input.sort(reverse=True)
     result = sum(input[0:3])
     return result
+

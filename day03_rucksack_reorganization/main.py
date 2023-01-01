@@ -43,3 +43,5 @@ def get_badge_prio_sum(lines: list[str]) -> int:
             prio = get_prio(item)
             result += prio
     return result
+
+

@@ -12,7 +12,7 @@ SCORE_ROCK = 1
 SCORE_PAPER = 2
 SCORE_SCISSORS = 3
 
-SCORE_TABLE = {
+SCORE_TABLE_PART_ONE = {
     'A': {
         'name': 'rock',
         'X': SCORE_DRAW + SCORE_ROCK,
