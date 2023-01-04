@@ -11,13 +11,13 @@ from __future__ import annotations
 
 
 def get_part_1_results_from_file(file_name: str) -> int:
-    commands = read_file(file_name)
+    commands = read_instructions_from_file(file_name)
     return get_signal_strength(commands)
 
 
-def get_part_2_results_from_file(file_name: str) -> int:
-    commands = read_file(file_name)
-    return get_signal_strength(commands)
+def get_part_2_results_from_file(file_name: str) -> str:
+    commands = read_instructions_from_file(file_name)
+    return get_display(commands)
 
 
 CYCLE_COUNT = {
@@ -44,41 +44,36 @@ class Inst:
 
 
 class VM:
+
+    STAGE_CYCLE_TIME = 0
+    STAGE_PRE_EXEC = 1
+    STAGE_POST_EXEC = 2
+
     def __init__(self):
         self.x = 1
-        self.cycles = 1
-        self.prev_sum_cycle = -20
-        self.total_signal_strength = 0
+        self.cycle = 1
         self.ops = {
             'addx': self.addx,
             'noop': self.noop
         }
 
+    def update_cycle(self, inst: Inst, stage: int):
+        pass
+
     def execute_inst(self, inst: Inst):
-        next_cycles = self.cycles + inst.cycles
-        self.update_signal_strength(next_cycles - 1)
-        assert inst.op_code in self.ops
-        old_x = self.x
-        old_cycles = self.cycles
+        for current_cycle in range(inst.cycles-1):
+            self.cycle += 1
+            self.update_cycle(inst, VM.STAGE_CYCLE_TIME)
+        self.cycle += 1
+        self.update_cycle(inst, VM.STAGE_PRE_EXEC)
+        assert inst.op_code in self.ops, f'Unknown opcode: {inst.op_code}'
         fn = self.ops[inst.op_code]
         fn(inst.operand)
-        self.cycles += inst.cycles
-        self.update_signal_strength(self.cycles)
-        # print(f'[{inst}]: [x:{old_x}, c:{old_cycles}] --> [x:{self.x}, c:{self.cycles}]')
+        self.update_cycle(inst, VM.STAGE_POST_EXEC)
 
     def execute_code(self, code: list[Inst]):
         for inst in code:
             self.execute_inst(inst)
-
-    def update_signal_strength(self, cycles: int):
-        if cycles == self.prev_sum_cycle:
-            return
-        next = self.prev_sum_cycle + 40
-        if next <= cycles:
-            signal_strength = next * self.x
-            # print(f'{self.__repr__()} :: {next} x {self.x} = {signal_strength}')
-            self.total_signal_strength += signal_strength
-            self.prev_sum_cycle = cycles
 
     def noop(self, _op):
         pass
@@ -86,20 +81,86 @@ class VM:
     def addx(self, operand: int):
         self.x += operand
 
+
+class SignalStrengthVM(VM):
+
+    def __init__(self):
+        super().__init__()
+        self.total_signal_strength = 0
+
+    def update_cycle(self, inst: Inst, stage: int):
+        if stage != VM.STAGE_PRE_EXEC and ((self.cycle + 20) % 40) == 0:
+            signal_strength = self.cycle * self.x
+            self.total_signal_strength += signal_strength
+
     def __repr__(self):
-        return f'x:{self.x} c:{self.cycles} s:{self.total_signal_strength}'
+        return f'x:{self.x} c:{self.cycle} s:{self.total_signal_strength}'
 
 
-def read_file(file_name: str) -> list[Inst]:
+class TubeVM(VM):
+
+    SCREEN_WIDTH = 40
+    SCREEN_HEIGHT = 6
+
+    def __init__(self):
+        super().__init__()
+        self.framebuffer: list[list[str]] = \
+            [["." for _ in range(TubeVM.SCREEN_WIDTH)] for _ in range(TubeVM.SCREEN_HEIGHT)]
+        self.ray_x = 0
+        self.ray_y = 0
+
+    def update_cycle(self, inst: Inst, stage: int):
+        if stage != VM.STAGE_POST_EXEC:
+            self._draw()
+            self._adjust_ray()
+
+    def _adjust_ray(self):
+        self.ray_x += 1
+        if self.ray_x == TubeVM.SCREEN_WIDTH:
+            self.ray_x = 0
+            self.ray_y += 1
+            if self.ray_y == TubeVM.SCREEN_HEIGHT:
+                self.ray_y = 0
+
+    def _draw(self):
+        pixel = "#" if self.x - 1 <= self.ray_x <= self.x + 1 else "."
+        self.framebuffer[self.ray_y][self.ray_x] = pixel
+
+    def __str__(self):
+        lines = ["".join(line) for line in self.framebuffer]
+        display = "\n".join(lines)
+        return display
+
+    def __repr__(self):
+        return f'x:{self.x} c:{self.cycle} r:{self.ray_x, self.ray_x}\n{self.__str__()}'
+
+
+def read_instructions_from_file(file_name: str) -> list[Inst]:
+    lines = read_file(file_name)
+    code = []
+    for line in lines:
+        code.append(Inst(line))
+    return code
+
+
+def read_display_from_file(file_name: str) -> str:
+    lines = read_file(file_name)
+    return "".join(lines).strip()
+
+
+def read_file(file_name: str) -> list[str]:
     with open(file_name) as f:
         lines = f.readlines()
-        code = []
-        for line in lines:
-            code.append(Inst(line))
-        return code
+        return lines
 
 
 def get_signal_strength(code: list[Inst]) -> int:
-    vm = VM()
+    vm = SignalStrengthVM()
     vm.execute_code(code)
     return vm.total_signal_strength
+
+
+def get_display(code: list[Inst]) -> str:
+    vm = TubeVM()
+    vm.execute_code(code)
+    return str(vm)
