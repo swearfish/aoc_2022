@@ -1,3 +1,12 @@
+"""
+Solutions for Advent of Code 2022 Day 4 puzzle: "Camp Cleanup"
+https://adventofcode.com/2022/day/4
+
+Copyright (C) 2022. Ákos Nagy
+https://www.linkedin.com/in/akosnagy350/
+"""
+
+
 from typing import Optional, Callable
 
 

@@ -1,3 +1,12 @@
+"""
+Solutions for Advent of Code 2022 Day 1 puzzle: "Calorie Counting"
+https://adventofcode.com/2022/day/1
+
+Copyright (C) 2022. Ákos Nagy
+https://www.linkedin.com/in/akosnagy350/
+"""
+
+
 def read_input_file(file_name: str) -> list[int]:
     with open(file_name) as f:
         lines = f.readlines()

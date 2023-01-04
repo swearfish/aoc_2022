@@ -1,3 +1,12 @@
+"""
+Solutions for Advent of Code 2022 Day 2 puzzle: "Rock, Paper, Scissors"
+https://adventofcode.com/2022/day/2
+
+Copyright (C) 2022. Ákos Nagy
+https://www.linkedin.com/in/akosnagy350/
+"""
+
+
 def get_score_from_file(file_name: str, score_table) -> int:
     with open(file_name) as f:
         lines = f.readlines()

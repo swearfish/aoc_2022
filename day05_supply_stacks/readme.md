@@ -1,4 +1,18 @@
-https://adventofcode.com/2022/day/5
+# Legal
+
+The contents of this file and all input files 
+(example.in and input.in files) are intellectual properties of 
+[Advent of Code](https://adventofcode.com) author 
+[Eric Wastl](http://was.tl/) and protected by law.
+
+Please refer to https://adventofcode.com/2022/about for details.
+
+# Notes
+
+This copy of the puzzle description is only provided 
+for historical reference.
+Please refer to [original description](https://adventofcode.com/2022/day/5)
+on [advent of code](https://www.adventofcode.com) if available.
 
 # Day 5: Supply Stacks
 

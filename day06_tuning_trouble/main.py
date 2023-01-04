@@ -1,3 +1,12 @@
+"""
+Solutions for Advent of Code 2022 Day 6 puzzle: "Tuning table"
+https://adventofcode.com/2022/day/6
+
+Copyright (C) 2022. Ákos Nagy
+https://www.linkedin.com/in/akosnagy350/
+"""
+
+
 HEAD_LEN_PART_1 = 4
 HEAD_LEN_PART_2 = 14
 

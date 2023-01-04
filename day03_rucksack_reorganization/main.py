@@ -1,3 +1,12 @@
+"""
+Solutions for Advent of Code 2022 Day 3 puzzle: "Rucksack reorganization"
+https://adventofcode.com/2022/day/3
+
+Copyright (C) 2022. Ákos Nagy
+https://www.linkedin.com/in/akosnagy350/
+"""
+
+
 def get_prio(item: str) -> int:
     if 'a' <= item <= 'z':
         return ord(item) - ord('a') + 1

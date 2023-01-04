@@ -1,3 +1,12 @@
+"""
+Solutions for Advent of Code 2022 Day 8 puzzle: "Treetop tree house"
+https://adventofcode.com/2022/day/8
+
+Copyright (C) 2022. Ákos Nagy
+https://www.linkedin.com/in/akosnagy350/
+"""
+
+
 from __future__ import annotations
 
 

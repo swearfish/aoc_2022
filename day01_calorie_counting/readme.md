@@ -1,6 +1,21 @@
-https://adventofcode.com/2022/day/1
+# Legal
+
+The contents of this file and all input files 
+(example.in and input.in files) are intellectual properties of 
+[Advent of Code](https://adventofcode.com) author 
+[Eric Wastl](http://was.tl/) and protected by law.
+
+Please refer to https://adventofcode.com/2022/about for details.
+
+# Notes
+
+This copy of the puzzle description is only provided 
+for historical reference.
+Please refer to [original description](https://adventofcode.com/2022/day/1)
+on [advent of code](https://www.adventofcode.com) if available.
 
 # Day 1: Calorie counting
+
 
 Santa's reindeer typically eat regular reindeer food, but they need a lot of magical energy to deliver presents on Christmas. For that, their favorite snack is a special type of star fruit that only grows deep in the jungle. The Elves have brought you on their annual expedition to the grove where the fruit grows.
 

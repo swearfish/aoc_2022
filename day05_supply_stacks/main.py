@@ -1,4 +1,13 @@
-from typing import Optional, Callable
+"""
+Solutions for Advent of Code 2022 Day 5 puzzle: "Supply stack"
+https://adventofcode.com/2022/day/5
+
+Copyright (C) 2022. Ákos Nagy
+https://www.linkedin.com/in/akosnagy350/
+"""
+
+
+from typing import Callable
 
 
 def get_part_1_results_from_file(file_name: str) -> str:
